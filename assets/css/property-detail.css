@@ -1,0 +1,212 @@
+:root{
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --shadow-hover: 0 10px 15px rgba(0, 0, 0, 0.15);
+    --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.2);
+    
+    /* Скругления */
+    --border-radius: 12px;
+    --border-radius-sm: 8px;
+    --border-radius-lg: 16px;
+    --primary: #4361ee;
+    --primary-dark: #3a56d4;
+    --secondary: #3f37c9;
+    --light: #f8f9fa;
+    --dark: #212529;
+    --gray: #6c757d;
+    --success: #4cc9f0;
+    /* Анимации */
+    --transition: all 0.3s ease;
+    --transition-fast: all 0.15s ease;
+}
+/* Стили для страницы деталей объекта */
+.property-detail-section {
+    padding: 3rem 0;
+}
+
+.property-detail-header {
+    margin-bottom: 2rem;
+    border-bottom: 1px solid var(--light-gray);
+    padding-bottom: 1.5rem;
+}
+
+.property-detail-header h1 {
+    font-size: 2.2rem;
+    margin-bottom: 0.5rem;
+    color: var(--dark);
+}
+
+.property-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.property-address {
+    font-size: 1.1rem;
+    color: var(--gray);
+}
+
+.property-address i {
+    color: var(--primary);
+    margin-right: 0.5rem;
+}
+
+.property-price {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--primary);
+}
+
+.property-detail-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    margin-bottom: 3rem;
+}
+
+.property-gallery {
+    position: relative;
+}
+
+.main-image {
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+}
+
+.main-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.property-info h3 {
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+    color: var(--dark);
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--light-gray);
+}
+
+.property-features ul {
+    list-style: none;
+    padding-left: 0;
+}
+.back-button{
+    border: solid 1px blue;
+    border-radius: var(--border-radius);
+    padding: 0.5em;
+    transition: var(--transition);
+    cursor: pointer;
+}
+.back-button:hover{
+    background-color: #e2e5e6;
+}
+.property-features li {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.7rem 0;
+    border-bottom: 1px dashed var(--light-gray);
+}
+
+.feature-label {
+    color: var(--gray);
+}
+
+.feature-value {
+    font-weight: 500;
+    color: var(--dark);
+}
+
+.property-special-features {
+    margin: 2rem 0;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.feature-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem;
+    background-color: rgba(67, 97, 238, 0.05);
+    border-radius: var(--border-radius-sm);
+}
+
+.feature-item i {
+    color: var(--primary);
+    width: 20px;
+    text-align: center;
+}
+
+.feature-item span {
+    font-size: 0.9rem;
+    color: var(--dark);
+}
+
+.property-description p {
+    line-height: 1.6;
+    color: var(--gray);
+}
+
+.property-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+}
+
+.property-actions .btn {
+    flex: 1;
+    min-width: 200px;
+}
+
+.similar-properties {
+    margin-top: 4rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--light-gray);
+}
+
+.similar-properties h2 {
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    color: var(--dark);
+}
+
+.properties-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+/* Адаптивность */
+@media (max-width: 992px) {
+    .property-detail-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .property-actions .btn {
+        width: 100%;
+    }
+}
+
+@media (max-width: 576px) {
+    .property-detail-header h1 {
+        font-size: 1.8rem;
+    }
+    
+    .property-price {
+        font-size: 1.5rem;
+    }
+    
+    .features-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
