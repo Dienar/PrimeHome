@@ -49,46 +49,5 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     // Обработка избранного
-    const favoriteBtn = document.querySelector('.btn-favorite');
-    if (favoriteBtn) {
-        favoriteBtn.addEventListener('click', function() {
-            const propertyId = this.getAttribute('data-property-id');
-            const propertyType = this.getAttribute('data-property-type');
-            const isFavorite = this.classList.contains('active');
-            
-            toggleFavorite(propertyId, isFavorite, this, propertyType);
-        });
-    }
-});
+})
 
-// Функция для работы с избранным
-function toggleFavorite(propertyId, isFavorite, button, propertyType) {
-    const formData = new FormData();
-    formData.append('property_id', propertyId);
-    formData.append('property_type', propertyType);
-    formData.append('action', isFavorite ? 'remove' : 'add');
-    
-    fetch('api/favorites.php', {
-        method: 'POST',
-        body: formData,
-        credentials: 'same-origin'
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            if (isFavorite) {
-                button.classList.remove('active');
-                button.innerHTML = '<i class="far fa-heart"></i> В избранное';
-            } else {
-                button.classList.add('active');
-                button.innerHTML = '<i class="fas fa-heart"></i> В избранном';
-            }
-        } else {
-            alert(data.message);
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        alert('Произошла ошибка при обновлении избранного');
-    });
-}

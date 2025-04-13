@@ -2,12 +2,18 @@
 require_once 'config.php';
 
 class Database {
+    private static $instance = null;
     private $connection;
-
+    
     public function __construct() {
         $this->connect();
     }
-
+    public static function getInstance() {
+        if (self::$instance == null) {
+            self::$instance = new Database();
+        }
+        return self::$instance;
+    }
     private function connect() {
         $this->connection = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
 

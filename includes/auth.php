@@ -1,8 +1,7 @@
 <?php
 require_once 'db.php';
 require_once 'functions.php';
-
-session_start();
+require_once 'init.php';
 
 // Регистрация пользователя
 function registerUser($username, $email, $password, $full_name, $phone) {

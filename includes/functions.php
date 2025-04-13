@@ -3,29 +3,30 @@ require_once 'db.php';
 
 // Получение всех квартир
 function getAllProperties($filters = []) {
-    global $db;
+    $db = Database::getInstance();
+    $conn = $db->getConnection();
     
     $query = "SELECT * FROM properties WHERE 1=1";
     
     // Фильтр по району
     if (!empty($filters['district'])) {
-        $district = $db->escape($filters['district']);
+        $district = $conn->real_escape_string($filters['district']);
         $query .= " AND district = '$district'";
     }
     
     // Фильтр по количеству комнат
     if (!empty($filters['rooms'])) {
-        $rooms = $db->escape($filters['rooms']);
+        $rooms = $conn->real_escape_string($filters['rooms']);
         $query .= " AND rooms = $rooms";
     }
     
     // Фильтр по цене
     if (!empty($filters['max_price'])) {
-        $max_price = $db->escape($filters['max_price']);
+        $max_price = $conn->real_escape_string($filters['max_price']);
         $query .= " AND price <= $max_price";
     }
     
-    $result = $db->query($query);
+    $result = $conn->query($query);
     $properties = [];
     
     while ($row = $result->fetch_assoc()) {
@@ -37,56 +38,86 @@ function getAllProperties($filters = []) {
 
 // Получение одной квартиры
 function getPropertyById($id) {
-    global $db;
-    $id = $db->escape($id);
+    $db = Database::getInstance();
+    $conn = $db->getConnection();
+    
+    $id = $conn->real_escape_string($id);
     $query = "SELECT * FROM properties WHERE id = $id";
-    $result = $db->query($query);
+    $result = $conn->query($query);
     
     return $result->fetch_assoc();
 }
 
 // Добавление в избранное
-function addToFavorites($user_id, $property_id) {
-    global $db;
-    $user_id = $db->escape($user_id);
-    $property_id = $db->escape($property_id);
+function getUserFavorites($userId) {
+    $db = Database::getInstance();
+    $conn = $db->getConnection();
     
-    $query = "INSERT INTO favorites (user_id, property_id) VALUES ($user_id, $property_id)";
-    return $db->query($query);
-}
-
-// Удаление из избранного
-function removeFromFavorites($user_id, $property_id) {
-    global $db;
-    $user_id = $db->escape($user_id);
-    $property_id = $db->escape($property_id);
+    $query = "SELECT 
+                f.id as favorite_id, 
+                f.property_id, 
+                f.property_type,
+                CASE 
+                    WHEN f.property_type = 'new_buildings' THEN n.title
+                    WHEN f.property_type = 'secondary_housing' THEN s.title
+                    WHEN f.property_type = 'premium_properties' THEN p.title
+                    WHEN f.property_type = 'studios' THEN st.title
+                END as title,
+                CASE 
+                    WHEN f.property_type = 'new_buildings' THEN n.price
+                    WHEN f.property_type = 'secondary_housing' THEN s.price
+                    WHEN f.property_type = 'premium_properties' THEN p.price
+                    WHEN f.property_type = 'studios' THEN st.price
+                END as price,
+                CASE 
+                    WHEN f.property_type = 'new_buildings' THEN n.image_path
+                    WHEN f.property_type = 'secondary_housing' THEN s.image_path
+                    WHEN f.property_type = 'premium_properties' THEN p.image_path
+                    WHEN f.property_type = 'studios' THEN st.image_path
+                END as image_path,
+                CASE 
+                    WHEN f.property_type = 'new_buildings' THEN n.address
+                    WHEN f.property_type = 'secondary_housing' THEN s.address
+                    WHEN f.property_type = 'premium_properties' THEN p.address
+                    WHEN f.property_type = 'studios' THEN st.address
+                END as address,
+                CASE 
+                    WHEN f.property_type = 'new_buildings' THEN n.rooms_available
+                    WHEN f.property_type = 'secondary_housing' THEN s.rooms
+                    WHEN f.property_type = 'premium_properties' THEN p.rooms
+                    WHEN f.property_type = 'studios' THEN NULL
+                END as rooms,
+                CASE 
+                    WHEN f.property_type = 'new_buildings' THEN n.area
+                    WHEN f.property_type = 'secondary_housing' THEN s.area
+                    WHEN f.property_type = 'premium_properties' THEN p.area
+                    WHEN f.property_type = 'studios' THEN st.area
+                END as area
+              FROM favorites f
+              LEFT JOIN new_buildings n ON f.property_id = n.id AND f.property_type = 'new_buildings'
+              LEFT JOIN secondary_housing s ON f.property_id = s.id AND f.property_type = 'secondary_housing'
+              LEFT JOIN premium_properties p ON f.property_id = p.id AND f.property_type = 'premium_properties'
+              LEFT JOIN studios st ON f.property_id = st.id AND f.property_type = 'studios'
+              WHERE f.user_id = ?";
     
-    $query = "DELETE FROM favorites WHERE user_id = $user_id AND property_id = $property_id";
-    return $db->query($query);
-}
-
-// Проверка, добавлено ли в избранное
-function isFavorite($user_id, $property_id) {
-    global $db;
-    $user_id = $db->escape($user_id);
-    $property_id = $db->escape($property_id);
+    $stmt = $conn->prepare($query);
     
-    $query = "SELECT id FROM favorites WHERE user_id = $user_id AND property_id = $property_id";
-    $result = $db->query($query);
+    if ($stmt === false) {
+        error_log("Failed to prepare query: " . $conn->error);
+        return [];
+    }
     
-    return $result->num_rows > 0;
-}
-
-// Получение избранных квартир пользователя
-function getUserFavorites($user_id) {
-    global $db;
-    $user_id = $db->escape($user_id);
+    if (!$stmt->bind_param("i", $userId)) {
+        error_log("Failed to bind parameters: " . $stmt->error);
+        return [];
+    }
     
-    $query = "SELECT p.* FROM properties p
-              JOIN favorites f ON p.id = f.property_id
-              WHERE f.user_id = $user_id";
+    if (!$stmt->execute()) {
+        error_log("Failed to execute query: " . $stmt->error);
+        return [];
+    }
     
-    $result = $db->query($query);
+    $result = $stmt->get_result();
     $favorites = [];
     
     while ($row = $result->fetch_assoc()) {
@@ -95,6 +126,9 @@ function getUserFavorites($user_id) {
     
     return $favorites;
 }
+// Удаление из избранного
+// (You should add this function if needed)
+
 function getNoun($number, $one, $two, $five) {
     $number = abs($number) % 100;
     $n1 = $number % 10;
@@ -103,4 +137,3 @@ function getNoun($number, $one, $two, $five) {
     if ($n1 == 1) return $one;
     return $five;
 }
-?>

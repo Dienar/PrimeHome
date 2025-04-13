@@ -1,3 +1,13 @@
+function showToast(message, type = 'success') {
+    const toast = document.createElement('div');
+    toast.className = `toast ${type}`;
+    toast.textContent = message;
+    document.body.appendChild(toast);
+    
+    setTimeout(() => {
+        toast.remove();
+    }, 3000);
+}
         // Mortgage Calculator
         const propertyPrice = document.getElementById('propertyPrice');
         const initialPayment = document.getElementById('initialPayment');
@@ -101,11 +111,7 @@
         });
     
         // Form submissions
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('Вход выполнен!');
-            loginModal.style.display = 'none';
-        });
+        
         
         document.getElementById('mortgageForm').addEventListener('submit', function(e) {
             e.preventDefault();
@@ -129,50 +135,5 @@
                 }
             });
         });
-    
-        // Обработка избранного для новостроек
-document.querySelectorAll('.btn-favorite[data-property-type="new"]').forEach(btn => {
-    btn.addEventListener('click', function() {
-        const propertyId = this.getAttribute('data-property-id');
-        const isFavorite = this.classList.contains('active');
-        
-        if (!isLoggedIn()) {
-            window.location.href = 'login.php';
-            return;
-        }
-        
-        toggleFavorite(propertyId, isFavorite, this, 'new');
-    });
-});
-
-// Обновленная функция toggleFavorite
-function toggleFavorite(propertyId, isFavorite, button, propertyType = 'property') {
-    const formData = new FormData();
-    formData.append('property_id', propertyId);
-    formData.append('property_type', propertyType);
-    formData.append('action', isFavorite ? 'remove' : 'add');
-    
-    fetch('api/favorites.php', {
-        method: 'POST',
-        body: formData,
-        credentials: 'same-origin'
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            if (isFavorite) {
-                button.classList.remove('active');
-                button.innerHTML = '<i class="far fa-heart"></i>';
-            } else {
-                button.classList.add('active');
-                button.innerHTML = '<i class="fas fa-heart"></i>';
-            }
-        } else {
-            alert(data.message);
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        alert('Произошла ошибка при обновлении избранного');
-    });
-}
+       
+ 

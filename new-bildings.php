@@ -113,9 +113,11 @@ while ($row = $result->fetch_assoc()) {
                         <div class="property-actions">
                             <a href="property-detail.php?type=new_buildings&id=<?php echo $building['id']; ?>" class="btn btn-outline">Подробнее</a>
                             <?php if (isLoggedIn()): ?>
-                                <button class="btn btn-favorite" data-property-id="<?php echo $building['id']; ?>" data-property-type="new">
+                                <form class="favorite-form" method="post" action="handlers/favorite_handler.php">
+                                <button class="btn btn-favorite"  data-property-id="<?php echo $building['id']; ?>" data-property-type="new_buildings">
                                     <i class="far fa-heart"></i>
                                 </button>
+                                </form>
                             <?php endif; ?>
                         </div>
                     </div>
@@ -173,6 +175,7 @@ while ($row = $result->fetch_assoc()) {
     <?php include_once "includes/footer.php"; ?>
  <script src="assets/js/loginform.js"></script>
     <script src="assets/js/script.js"></script>
+    <script src="assets/js/whereuser.js"></script>
     <script>
         localStorage.setItem('location',window.location);
     </script>

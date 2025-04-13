@@ -1,0 +1,245 @@
+/* Основные стили секции */
+.section {
+    padding: 60px 0;
+    background-color: #f8f9fa;
+    min-height: calc(100vh - 120px);
+}
+
+.container-profile {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Контейнер профиля */
+.profile-container {
+    display: flex;
+    gap: 30px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+/* Боковая панель */
+.profile-sidebar {
+    width: 280px;
+    background: linear-gradient(135deg, #6e8efb, #a777e3);
+    padding: 30px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+}
+
+.profile-avatar {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.profile-avatar i {
+    font-size: 100px;
+    color: rgba(255, 255, 255, 0.9);
+    transition: transform 0.3s ease;
+}
+
+.profile-avatar:hover i {
+    transform: scale(1.05);
+}
+
+.profile-sidebar h3 {
+    font-size: 22px;
+    margin-bottom: 5px;
+    font-weight: 600;
+}
+
+.profile-sidebar p {
+    opacity: 0.9;
+    margin-bottom: 30px;
+    font-size: 15px;
+}
+
+/* Меню профиля */
+.profile-menu {
+    list-style: none;
+    padding: 0;
+    margin-top: auto;
+}
+
+.profile-menu li {
+    margin-bottom: 12px;
+    transition: transform 0.2s ease;
+}
+
+.profile-menu li:hover {
+    transform: translateX(5px);
+}
+
+.profile-menu li.active a {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.profile-menu a {
+    color: white;
+    text-decoration: none;
+    padding: 12px 15px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+.profile-menu a:hover {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.profile-menu i {
+    margin-right: 12px;
+    width: 20px;
+    text-align: center;
+}
+
+/* Основное содержимое */
+.profile-content {
+    flex: 1;
+    padding: 40px;
+}
+
+.profile-content h2 {
+    font-size: 28px;
+    margin-bottom: 30px;
+    color: #2c3e50;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.profile-content h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(to right, #6e8efb, #a777e3);
+}
+
+/* Форма */
+.profile-form {
+    max-width: 600px;
+}
+
+.form-group {
+    margin-bottom: 25px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #4a5568;
+    font-size: 15px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 14px 16px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    background-color: #f8fafc;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #a777e3;
+    box-shadow: 0 0 0 3px rgba(167, 119, 227, 0.1);
+    background-color: #fff;
+}
+
+.form-group input:disabled {
+    background-color: #edf2f7;
+    color: #718096;
+}
+
+/* Кнопка */
+.btn-profile {
+    background: linear-gradient(to right, #6e8efb, #a777e3);
+    color: white;
+    border: none;
+    padding: 14px 28px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-block;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(110, 142, 251, 0.3);
+}
+
+.btn-profile:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(110, 142, 251, 0.4);
+}
+
+/* Уведомления */
+.alert {
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 25px;
+    font-size: 15px;
+    animation: fadeIn 0.5s ease;
+}
+
+.alert-success {
+    background-color: #f0fff4;
+    color: #2f855a;
+    border-left: 4px solid #48bb78;
+}
+
+.alert-error {
+    background-color: #fff5f5;
+    color: #c53030;
+    border-left: 4px solid #f56565;
+}
+
+/* Анимации */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Адаптивность */
+@media (max-width: 992px) {
+    .profile-container {
+        flex-direction: column;
+    }
+    
+    .profile-sidebar {
+        width: 100%;
+        padding: 25px;
+    }
+    
+    .profile-content {
+        padding: 30px;
+    }
+}
+
+@media (max-width: 576px) {
+    .section {
+        padding: 30px 0;
+    }
+    
+    .profile-content {
+        padding: 20px;
+    }
+    
+    .profile-content h2 {
+        font-size: 24px;
+    }
+    
+    .btn-profile {
+        width: 100%;
+    }
+}

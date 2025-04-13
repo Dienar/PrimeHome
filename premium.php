@@ -109,7 +109,11 @@ while ($row = $result->fetch_assoc()) {
                         
                         <div class="property-actions">
                             <a href="property-detail.php?type=premium_properties&id=<?php echo $property['id']; ?>" class="btn btn-outline">Подробнее</a>
-                            <button class="btn btn-request" data-property-id="<?php echo $property['id']; ?>">Запрос</button>
+                            <form class="favorite-form" method="post" action="handlers/favorite_handler.php">
+                            <button class="btn btn-favorite"  data-property-id="<?php echo $property['id']; ?>" data-property-type="premium_properties">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                </form>
                         </div>
                     </div>
                 </div>
@@ -185,6 +189,7 @@ while ($row = $result->fetch_assoc()) {
     <script src="assets/js/loginform.js"></script>
     <script src="assets/js/script.js"></script>
     <script src="assets/js/premium.js"></script>
+    <script src="assets/js/whereuser.js"></script>
     <script>
         localStorage.setItem('location',window.location);
     </script>

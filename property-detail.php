@@ -165,7 +165,7 @@ $similarProperties = $details->getSimilarProperties(
                                 <i class="far fa-heart"></i> В избранное
                             </button>
                         <?php else: ?>
-                            <a href="login.php" class="btn btn-outline">
+                            <a href="index.php" class="btn btn-outline">
                                 <i class="fas fa-heart"></i> Войдите, чтобы добавить в избранное
                             </a>
                         <?php endif; ?>
@@ -234,5 +234,6 @@ $similarProperties = $details->getSimilarProperties(
 
     <script src="assets/js/script.js"></script>
     <script src="assets/js/property-detail.js"></script>
+    <script src="assets/js/whereuser.js"></script>
 </body>
 </html>

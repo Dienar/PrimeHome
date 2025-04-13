@@ -48,7 +48,12 @@
     margin-bottom: 5px;
     font-weight: 500;
 }
-
+.property-actions{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
 .property-title {
     font-size: 1.3rem;
     margin-bottom: 10px;

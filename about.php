@@ -214,5 +214,6 @@ require_once 'includes/functions.php';
 
     <script src="assets/js/script.js"></script>
     <script src="assets/js/loginform.js"></script>
+    <script src="assets/js/whereuser.js"></script>
 </body>
 </html>

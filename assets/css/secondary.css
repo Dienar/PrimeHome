@@ -64,7 +64,12 @@
     padding-bottom: 1.5rem;
     border-bottom: 1px solid var(--light-gray);
 }
-
+.property-actions{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
 .feature {
     display: flex;
     align-items: center;

@@ -465,7 +465,142 @@ footer {
   margin-bottom: 20px;
   color: var(--primary);
 }
+/* Стили для уведомлений */
+.custom-alert {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  padding: 15px 20px;
+  border-radius: 5px;
+  color: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 10000;
+  transform: translateX(0);
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  max-width: 400px;
+}
 
+.custom-alert.fade-out {
+  opacity: 0;
+  transform: translateX(100%);
+}
+
+.alert-success {
+  background-color: #4CAF50;
+  border-left: 5px solid #388E3C;
+}
+.btn-favorite {
+  transition: all 0.3s ease;
+}
+
+
+.persistent-notification {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  padding: 15px 25px;
+  border-radius: 5px;
+  color: white;
+  z-index: 1000;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  animation: slideIn 0.3s ease-out;
+  transition: opacity 0.3s;
+  max-width: 300px;
+}
+
+.persistent-notification.success {
+  background-color: #2ecc71;
+}
+
+.persistent-notification.error {
+  background-color: #e74c3c;
+}
+/* Добавьте в ваш CSS файл */
+.studios-grid-img{
+  margin: 0 auto;
+  text-align: center;
+  display: none;
+  margin-top: 2em;
+}
+.studios-grid-img img{
+  max-width: 200px;
+  max-height: 200px;
+}
+.studio-card {
+  transition: all 0.3s ease;
+}
+.studio-card[style*="display: none"] {
+  opacity: 0;
+  height: 0;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  border: none;
+}
+.close-notification {
+  margin-left: 15px;
+  cursor: pointer;
+  font-weight: bold;
+  display: inline-block;
+}
+
+@keyframes slideIn {
+  from { transform: translateX(100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+.alert-error {
+  background-color: #F44336;
+  border-left: 5px solid #D32F2F;
+}
+@media (max-width: 768px) {
+  .persistent-notification {
+      bottom: auto;
+      top: 20px;
+      left: 20px;
+      right: 20px;
+      max-width: none;
+  }
+}
+.error { color: white; }
+.toast {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  padding: 15px 25px;
+  border-radius: 5px;
+  color: white;
+  z-index: 1000;
+  animation: fadeIn 0.3s;
+}
+
+.toast.success {
+  background-color: #2ecc71;
+}
+
+.toast.error {
+  background-color: #e74c3c;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+
+        .success { color: green; }
+.alert-content {
+  display: flex;
+  align-items: center;
+}
+
+.alert-icon {
+  margin-right: 10px;
+  font-weight: bold;
+}
+
+.alert-text {
+  flex: 1;
+}
 /* Responsive */
 @media (max-width: 768px) {
   .header-container {

@@ -117,15 +117,7 @@
     gap: 1rem;
 }
 
-.btn-request {
-    background-color: var(--accent);
-    color: white;
-    flex: 1;
-}
 
-.btn-request:hover {
-    background-color: #e5177a;
-}
 
 /* Секция консультации */
 .consultation-section {
