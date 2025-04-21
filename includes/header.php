@@ -9,9 +9,16 @@
             <nav>
                 <ul>
                     <li><a href="index.php">Квартиры</a></li>
-                    <li><a href="#mortgage">Ипотека</a></li>
+                    <li><?php  require_once 'init.php';
+            $url = $_SERVER['REQUEST_URI'];
+            if($url === '/Primehome/index.php'){
+                echo "<a href='#mortgage'>Ипотека</a>";
+            }else{
+                echo "<a href='index.php'>Ипотека</a>";
+            }
+           ?></li>
                     <li><a href="about.php">О компании</a></li>
-                    <li><a href="#contact">Контакты</a></li>
+                    <li><a href='#contact'>Контакты</a></li>
                 </ul>
             </nav>
             <?php 

@@ -3,7 +3,7 @@ require_once 'includes/auth.php';
 require_once 'includes/functions.php';
 
 if (!isLoggedIn()) {
-    header('Location: login.php');
+    header('Location: index.php');
     exit;
 }
 
